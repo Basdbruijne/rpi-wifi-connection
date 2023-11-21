@@ -194,11 +194,6 @@ module.exports = class WiFiConnection {
             return self.wpa_cli(sprintf('reconfigure'), '^OK');
         }
 
-        function saveConfiguration() {
-            debug(sprintf('Saving configuration...'));
-            return self.wpa_cli(sprintf('save_config'), '^OK');
-        }
-
         function removeNetwork(id) {
             debug(sprintf('Removing network %d...', id));
             self.wpa_cli(sprintf('remove_network %d', id), '^OK');
@@ -296,9 +291,6 @@ module.exports = class WiFiConnection {
             })
             .then(() => {
                 return waitForNetworkConnection(timeout);
-            })
-            .then(() => {
-                return saveConfiguration();
             })
             .then(() => {
                 resolve();
